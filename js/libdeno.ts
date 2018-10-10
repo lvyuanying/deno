@@ -10,11 +10,15 @@ export type PromiseRejectEvent =
   | "RejectAfterResolved";
 
 interface Libdeno {
+  // TODO Remove recv(), it is unused.
   recv(cb: MessageCallback): void;
 
   send(control: ArrayBufferView, data?: ArrayBufferView): null | Uint8Array;
 
   print(x: string, isErr?: boolean): void;
+
+  runMicrotasks(): void;
+  exit(code: number): void;
 
   setGlobalErrorHandler: (
     handler: (
