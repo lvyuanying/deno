@@ -69,19 +69,6 @@ enum ErrorKind: byte {
 
   BadFileDescriptor,
 
-  // url errors
-
-  EmptyHost,
-  IdnaError,
-  InvalidPort,
-  InvalidIpv4Address,
-  InvalidIpv6Address,
-  InvalidDomainCharacter,
-  RelativeUrlWithoutBase,
-  RelativeUrlWithCannotBeABaseBase,
-  SetHostOnCannotBeABaseUrl,
-  Overflow,
-
   // hyper errors
 
   HttpUser,
@@ -89,6 +76,7 @@ enum ErrorKind: byte {
   HttpCanceled,
   HttpParse,
   HttpOther,
+  InvalidUri,
 }
 
 table Base {

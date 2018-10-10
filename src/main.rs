@@ -12,12 +12,12 @@ extern crate tokio_executor;
 extern crate tokio_fs;
 extern crate tokio_io;
 extern crate tokio_threadpool;
-extern crate url;
 #[macro_use]
 extern crate lazy_static;
 #[macro_use]
 extern crate log;
 extern crate dirs;
+extern crate http;
 extern crate hyper_rustls;
 extern crate remove_dir_all;
 extern crate ring;
@@ -26,7 +26,7 @@ mod deno_dir;
 mod errors;
 mod flags;
 mod fs;
-mod http;
+mod http_util;
 mod isolate;
 mod libdeno;
 pub mod ops;
