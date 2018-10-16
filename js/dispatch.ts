@@ -12,23 +12,27 @@ const promiseTable = new Map<number, util.Resolvable<msg.Base>>();
 
 let fireTimers: () => number;
 let nTasks = 0; // Number of async tasks pending.
+let delay = 0; // Cached return value of fireTimers.
 
-function eventLoopLog(delay: number): void {
+function eventLoopLog(): void {
   util.log(`TICK delay ${delay} nTasks ${nTasks}`);
+}
+
+function idle(): boolean {
+  delay = fireTimers();
+  return delay < 0 && nTasks === 0;
 }
 
 export function eventLoop(): boolean {
   for (;;) {
-    let delay = fireTimers();
-    if (delay < 0 && nTasks == 0) {
+    if (idle()) {
       libdeno.runMicrotasks();
-      delay = fireTimers();
-      if (delay < 0 && nTasks == 0) {
+      if (idle()) {
         break;
       }
     }
-    eventLoopLog(delay);
-    let ui8 = poll(delay);
+    eventLoopLog();
+    const ui8 = poll(delay);
     if (ui8 != null) {
       handleAsyncMsgFromRust(ui8);
       libdeno.runMicrotasks();

@@ -39,8 +39,6 @@ interface Libdeno {
     ) => void
   ) => void;
 
-  setPromiseErrorExaminer: (handler: () => boolean) => void;
-
   mainSource: string;
   mainSourceMap: RawSourceMap;
 }
